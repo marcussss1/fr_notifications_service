@@ -1,0 +1,6 @@
+Server:
+  port: ":8083"
+
+Postgres:
+  db: "postgres"
+  connectionToDB: "user=brigade password=123 dbname=brigade host=postgres port=5432 sslmode=disable"

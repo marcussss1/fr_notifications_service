@@ -1,0 +1,679 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "description": "SwaggerHub API Auto Mocking",
+      "url": "http://localhost:8083"
+    }
+  ],
+  "info": {
+    "version": "1.0.0",
+    "title": "home-iot-api",
+    "description": "The API for the EatBacon IOT project"
+  },
+  "paths": {
+    "/api/v1/clients/create": {
+      "post": {
+        "description": "добавление нового клиента в справочник со всеми его атрибутами.",
+        "tags": [
+          "clients"
+        ],
+        "responses": {
+          "201": {
+            "description": "клиент успешно добавлен, возвращаем сущность клиента.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "на вход пришли невалидные данные.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInvalidArgument"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "внутренняя ошибка сервера.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInternal"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateClientRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/clients/update/{userID}": {
+      "parameters": [
+        {
+          "name": "userID",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "обновление данных атрибутов клиента.",
+        "tags": [
+          "clients"
+        ],
+        "responses": {
+          "200": {
+            "description": "клиент успешно обновлен, возвращаем сущность клиента.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "на вход пришли невалидные данные.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInvalidArgument"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "клиент не найден.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrClientNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "внутренняя ошибка сервера.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInternal"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateClientRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/clients/delete/{userID}": {
+      "parameters": [
+        {
+          "name": "userID",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "delete": {
+        "description": "удаление клиента из справочника.",
+        "tags": [
+          "clients"
+        ],
+        "responses": {
+          "204": {
+            "description": "клиент успешно удален."
+          },
+          "404": {
+            "description": "клиент не найден.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrClientNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "внутренняя ошибка сервера.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInternal"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/mailings/create": {
+      "post": {
+        "description": "добавление новой рассылки со всеми её атрибутами.",
+        "tags": [
+          "mailings"
+        ],
+        "responses": {
+          "201": {
+            "description": "рассылка успешно добавлена, возвращаем сущность рассылки.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mailing"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "на вход пришли невалидные данные.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInvalidArgument"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "внутренняя ошибка сервера.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInternal"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMailingRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/mailings/update/{mailingID}": {
+      "parameters": [
+        {
+          "name": "mailingID",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "обновление данных атрибутов рассылки.",
+        "tags": [
+          "mailings"
+        ],
+        "responses": {
+          "200": {
+            "description": "рассылка успешно обновлена, возвращаем сущность рассылки.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mailing"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "на вход пришли невалидные данные.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInvalidArgument"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "рассылка не найдена.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrMailingNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "внутренняя ошибка сервера.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInternal"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMailingRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/mailings/delete/{mailingID}": {
+      "parameters": [
+        {
+          "name": "mailingID",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "delete": {
+        "description": "удаление рассылки.",
+        "tags": [
+          "mailings"
+        ],
+        "responses": {
+          "204": {
+            "description": "рассылка успешно удалена."
+          },
+          "404": {
+            "description": "рассылка не найдена.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrMailingNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "внутренняя ошибка сервера.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInternal"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages": {
+      "get": {
+        "description": "получение общей статистики по созданным рассылкам и количеству отправленных сообщений по ним с группировкой по статусам.",
+        "tags": [
+          "messages"
+        ],
+        "responses": {
+          "200": {
+            "description": "возвращаем статистику по сообщениям и рассылкам.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonStatisticMessages"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "внутренняя ошибка сервера.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInternal"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages/{mailingID}": {
+      "parameters": [
+        {
+          "name": "mailingID",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "description": "получение детальной статистики отправленных сообщений по конкретной рассылке.",
+        "tags": [
+          "messages"
+        ],
+        "responses": {
+          "200": {
+            "description": "возвращаем статистику отправленных сообщений.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Message"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "рассылка не найдена.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrMailingNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "внутренняя ошибка сервера.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInternal"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages/active": {
+      "put": {
+        "description": "обработка активных рассылок и отправки сообщений клиентам.",
+        "tags": [
+          "messages"
+        ],
+        "responses": {
+          "200": {
+            "description": "смотрим на активные рассылки, проверяем, что сообщения отправлены, а время окончания рассылки не завершено, смотрим на сообщения, отправленные в рамках этой рассылки, если видим created, то такие сообщения отправляем еще раз."
+          },
+          "500": {
+            "description": "внутренняя ошибка сервера.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrInternal"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Mailing": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "уникальный id рассылки",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "дата и время запуска рассылки",
+            "type": "string",
+            "format": "date-time"
+          },
+          "text": {
+            "description": "текст сообщения для доставки клиенту",
+            "type": "string"
+          },
+          "filter": {
+            "description": "фильтр свойств клиентов, на которых должна быть произведена рассылка (код мобильного оператора, тег)",
+            "type": "string"
+          },
+          "finished_at": {
+            "description": "дата и время окончания рассылки: если по каким-то причинам не успели разослать все сообщения - никакие сообщения клиентам после этого времени доставляться не должны",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Client": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "уникальный id клиента",
+            "type": "string"
+          },
+          "phone_number": {
+            "description": "номер телефона клиента в формате 7XXXXXXXXXX (X - цифра от 0 до 9)",
+            "type": "string"
+          },
+          "mobile_operator_code": {
+            "description": "код мобильного оператора",
+            "type": "integer"
+          },
+          "tag": {
+            "description": "тег (произвольная метка)",
+            "type": "string"
+          },
+          "time_zone": {
+            "description": "часовой пояс",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "уникальный id сообщения",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "дата и время создания (отправки)",
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/MessageStatus"
+          },
+          "mailing_id": {
+            "description": "id рассылки, в рамках которой было отправлено сообщение",
+            "type": "string"
+          },
+          "receiver_client_id": {
+            "description": "id клиента, которому отправили",
+            "type": "string"
+          }
+        }
+      },
+      "MessageStatus": {
+        "description": "статус отправки",
+        "type": "integer",
+        "enum": [
+          "UNKNOWN",
+          "SUCCEEDED",
+          "FAILED"
+        ]
+      },
+      "CreateClientRequest": {
+        "type": "object",
+        "properties": {
+          "phone_number": {
+            "description": "номер телефона клиента в формате 7XXXXXXXXXX (X - цифра от 0 до 9)",
+            "type": "string"
+          },
+          "mobile_operator_code": {
+            "description": "код мобильного оператора",
+            "type": "integer"
+          },
+          "tag": {
+            "description": "тег (произвольная метка)",
+            "type": "string"
+          },
+          "time_zone": {
+            "description": "часовой пояс",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpdateClientRequest": {
+        "type": "object",
+        "properties": {
+          "phone_number": {
+            "description": "номер телефона клиента в формате 7XXXXXXXXXX (X - цифра от 0 до 9)",
+            "type": "string"
+          },
+          "mobile_operator_code": {
+            "description": "код мобильного оператора",
+            "type": "integer"
+          },
+          "tag": {
+            "description": "тег (произвольная метка)",
+            "type": "string"
+          },
+          "time_zone": {
+            "description": "часовой пояс",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateMailingRequest": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "description": "дата и время запуска рассылки",
+            "type": "string",
+            "format": "date-time"
+          },
+          "text": {
+            "description": "текст сообщения для доставки клиенту",
+            "type": "string"
+          },
+          "filter": {
+            "description": "фильтр свойств клиентов, на которых должна быть произведена рассылка (код мобильного оператора, тег)",
+            "type": "string"
+          },
+          "finished_at": {
+            "description": "дата и время окончания рассылки: если по каким-то причинам не успели разослать все сообщения - никакие сообщения клиентам после этого времени доставляться не должны",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpdateMailingRequest": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "description": "дата и время запуска рассылки",
+            "type": "string",
+            "format": "date-time"
+          },
+          "text": {
+            "description": "текст сообщения для доставки клиенту",
+            "type": "string"
+          },
+          "filter": {
+            "description": "фильтр свойств клиентов, на которых должна быть произведена рассылка (код мобильного оператора, тег)",
+            "type": "string"
+          },
+          "finished_at": {
+            "description": "дата и время окончания рассылки: если по каким-то причинам не успели разослать все сообщения - никакие сообщения клиентам после этого времени доставляться не должны",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CommonStatisticMessages": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "mailing": {
+              "$ref": "#/components/schemas/Mailing"
+            },
+            "messages": {
+              "description": "сообщения, сгруппированные по статусу",
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Message"
+              }
+            }
+          }
+        }
+      },
+      "ErrInternal": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "example": "внутренняя ошибка сервера",
+            "type": "string"
+          }
+        }
+      },
+      "ErrInvalidArgument": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "example": "на вход поданы невалидные данные",
+            "type": "string"
+          }
+        }
+      },
+      "ErrClientNotFound": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "example": "клиент не найден",
+            "type": "string"
+          }
+        }
+      },
+      "ErrMailingNotFound": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "example": "рассылка не найдена",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

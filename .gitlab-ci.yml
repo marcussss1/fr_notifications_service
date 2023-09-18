@@ -1,0 +1,16 @@
+stages:
+  - build
+  - lint
+
+build:
+  stage: build
+  image: golang:1.21.1
+  script:
+    - go build -o api cmd/api/main.go
+
+lint:
+  stage: lint
+  image: golang:1.21.1
+  script:
+    - go install github.com/kisielk/errcheck@latest
+    - errcheck ./...
